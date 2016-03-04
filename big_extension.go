@@ -1,4 +1,4 @@
-package GoNTL
+package gontl
 
 import(
 	"math/big"
@@ -11,9 +11,9 @@ func SetScalar(scalar int) (*big.Int) {
 	return a
 }
 
-var big0 *big.Int = SetScalar(0)
-var big1 *big.Int = SetScalar(1)
-var big2 *big.Int = SetScalar(2)
+var Big0 *big.Int = SetScalar(0)
+var Big1 *big.Int = SetScalar(1)
+var Big2 *big.Int = SetScalar(2)
 
 // Compare a big int to a scalar
 func CmpScalar(a *big.Int, scalar int) (int) {

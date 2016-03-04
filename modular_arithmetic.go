@@ -1,4 +1,4 @@
-package GoNTL
+package gontl
 
 import(
 
