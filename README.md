@@ -23,5 +23,6 @@ modulus := gontl.SetScalar(1127698306139)
 order := gontl.SetScalar(563849153069)
 secret := gontl.SetScalar(150672668021)
 
+// problem = 2^secret mod modulus. Order(2) = order
 fmt.Println(gontl.Pollard_Rho(problem, gontl.Big2, modulus, order, gontl.Big0, gontl.Big0)) // -> secret
 ```
