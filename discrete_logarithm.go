@@ -18,24 +18,24 @@ func iteration(x *big.Int, a *big.Int, b *big.Int, alpha *big.Int, beta *big.Int
 		x.Mul(x, beta)
 		x.Mod(x, modulus)
 
-		b.Add(big1)
+		b.Add(b, big1)
 		b.Mod(b, order)
 
 	} else if CmpScalar(test, 1) == 0 {
 		x.Mul(x, x)
 		x.Mod(x, modulus)
 
-		a.Mul(big2)
+		a.Mul(a, big2)
 		a.Mod(a, order)
 
-		b.Mul(big2)
+		b.Mul(b, big2)
 		b.Mod(b, order)
 
 	} else {
 		x.Mul(x, alpha)
 		x.Mod(x, modulus)
 
-		a.Add(aig1)
+		a.Add(a, big1)
 		a.Mod(a, order)
 	}
 }
@@ -47,16 +47,18 @@ func iteration(x *big.Int, a *big.Int, b *big.Int, alpha *big.Int, beta *big.Int
  * nor the parallelizable version.
  * You need to know the order of the generator to use it
  */
-func Pollard_Rho(problem bit.Int, generator big.Int, modulus big.Int, order big.int, a big.Int, b big.Int) (discrete_log bit.Int) {
+func Pollard_Rho(problem *big.Int, generator *big.Int, modulus *big.Int, order *big.Int, a *big.Int, b *big.Int) (discrete_log *big.Int) {
 	// init
-	if generator.CmpScalar(0) {
-		alpha := SetScalar(2)
-	}
-	big.Set(beta, problem)
+	alpha := new(big.Int)
+	alpha.Set(generator)
+
+	beta := new(big.Int)
+	beta.Set(problem)
 
 	// x
 	x := new(big.Int)
-	if a.CmpScalar(0) || b.CmpScalar(0) {
+
+	if a.Cmp(big0) == 0 || b.Cmp(big0) == 0{
 		x.Exp(alpha, a, modulus)
 		y:= new(big.Int)
 		y.Exp(beta, b, modulus)
@@ -93,7 +95,7 @@ func Pollard_Rho(problem bit.Int, generator big.Int, modulus big.Int, order big.
 		if x1.Cmp(x2) == 0 {
 			r := new(big.Int)
 			r.Sub(b1, b2)
-			if r.Cmp(big0) {
+			if r.Cmp(big0) == 0 {
 				break // failure
 			} else {
 				r.ModInverse(r, order)
