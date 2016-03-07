@@ -109,8 +109,31 @@ func Pollard_Rho(problem *big.Int, generator *big.Int, modulus *big.Int, order *
 		}
 	}
 	log.Println("failure")
-	// failure
+	// failure, have to write that part
 	return Big0
+}
+
+// Chinese-Remainder Theorem
+// Should implement Garner's algorithm instead, it's faster
+func CRT2(a *big.Int, b *big.Int, moda *big.Int, modb *big.Int) (*big.Int) {
+	// a side
+	invb := new(big.Int)
+	invb.ModInverse(modb, moda)
+	invb.Mul(invb, modb)
+	invb.Mul(invb, a)
+
+	// b side
+	inva := new(big.Int)
+	inva.ModInverse(moda, modb)
+	inva.Mul(inva, moda)
+	inva.Mul(inva, b)
+
+	// add both side
+	inva.Add(inva, invb)
+
+	// Mod
+	invb.Mul(moda, modb)
+	return inva.Mod(inva, invb)
 }
 
 ////////////////////////////////////////////////////////////////////////

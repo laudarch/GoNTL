@@ -2,6 +2,8 @@ package gontl
 
 import(
 	"testing"
+	"math/big"
+	"log"
 )
 
 func TestPollardRho(t *testing.T){
@@ -19,5 +21,24 @@ func TestPollardRho(t *testing.T){
 
 	if result.Cmp(secret) != 0 {
 		t.Error("Expected", secret, ", got ", result)
+	}
+}
+
+func Test2CRT(t *testing.T){
+
+	x := SetScalar(39248302948940234)
+	p := SetScalar(2706403677983)
+	q := SetScalar(2402895179297)
+	n := new(big.Int)
+	n.Mul(p, q)
+
+	xp := new(big.Int)
+	xp.Mod(x, p)
+	xq := new(big.Int)
+	xq.Mod(x, q)
+
+	result := CRT2(xp, xq, p, q)
+	if result.Cmp(x) != 0 {
+		t.Error("Expected", x, ", got ", result)
 	}
 }
