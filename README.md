@@ -26,3 +26,12 @@ secret := gontl.SetScalar(150672668021)
 // problem = 2^secret mod modulus. Order(2) = order
 fmt.Println(gontl.Pollard_Rho(problem, gontl.Big2, modulus, order, gontl.Big0, gontl.Big0)) // -> secret
 ```
+
+## Functions
+
+Chinese Remainder Theorem:
+
+```
+CRT2(a *big.Int, b *big.Int, moda *big.Int, modb *big.Int) (*big.Int)
+```
+
