@@ -29,6 +29,12 @@ fmt.Println(gontl.Pollard_Rho(problem, gontl.Big2, modulus, order, gontl.Big0, g
 
 ## Functions
 
+Pollard Rho
+
+```
+Pollard_Rho(problem *big.Int, generator *big.Int, modulus *big.Int, order *big.Int, a *big.Int, b *big.Int) (discrete_log *big.Int)
+```
+
 Chinese Remainder Theorem:
 
 ```
